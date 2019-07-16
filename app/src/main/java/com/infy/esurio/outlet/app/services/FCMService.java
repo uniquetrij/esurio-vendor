@@ -2,6 +2,7 @@ package com.infy.esurio.outlet.app.services;
 
 import android.util.Log;
 
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.infy.esurio.outlet.app.This;
@@ -14,6 +15,8 @@ public class FCMService extends FirebaseMessagingService {
     public void onNewToken(String token) {
         Log.d(TAG, "Refreshed token: " + token);
         This.FCM_TOKEN.wrap(token);
+
+        FirebaseMessaging.getInstance().subscribeToTopic("esurio");
     }
 
     @Override

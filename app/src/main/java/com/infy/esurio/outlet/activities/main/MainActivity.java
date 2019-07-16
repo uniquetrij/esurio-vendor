@@ -13,6 +13,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.infy.esurio.R;
 import com.infy.esurio.middleware.DTO.OrdersDTO;
 import com.infy.esurio.outlet.activities.main.fragments.OrdersListFragment;
@@ -103,6 +104,8 @@ public class MainActivity extends AppCompatActivity implements OrdersListFragmen
                         Log.d(TAG, msg);
                     }
                 });
+
+        FirebaseMessaging.getInstance().subscribeToTopic("esurio");
 
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setDisplayShowCustomEnabled(true);
