@@ -1,5 +1,6 @@
 package com.infy.esurio.outlet.app.services;
 
+import android.util.Log;
 import android.widget.TextView;
 
 import androidx.databinding.ObservableArrayList;
@@ -51,25 +52,30 @@ public class OrdersService {
 
         public static void putServings(OrdersDTO dto, List<String> servings) {
             servings.clear();
-            switch (dto.getIdentifier()) {
-                case "#1":
-                    servings.add("masala dosa - 2");
-                    break;
-                case "#2":
-                    servings.add("egg friedrice - 1");
-                    servings.add("paneer chilli - 1");
-                    break;
-
-                case "#3":
-                    servings.add("chicken biriyani - 1");
-                    break;
-                case "#4":
-                    servings.add("mixed noodles - 1");
-                    break;
-                case "#5":
-                    servings.add("masala dosa - 1");
-                    break;
+            String message = dto.getIdentifier().substring(6);
+            for(int i=0; i < message.length(); i+=2){
+                switch (message.charAt(i)) {
+                    case '0':
+                        servings.add("Masala Dosa - " + message.charAt(i+1));
+                        break;
+                    case '1':
+                        servings.add("Chicken Biryani - " +  message.charAt(i+1));
+                        break;
+                    case '2':
+                        servings.add("Mixed Noodles - " + message.charAt(i+1));
+                        break;
+                    case '3':
+                        servings.add("Egg Friedrice - " + message.charAt(i+1));
+                        break;
+                    case '4':
+                        servings.add("Chicken Shwarama - " + message.charAt(i+1));
+                        break;
+                    case '5':
+                        servings.add("Chilli Paneer - " + message.charAt(i+1));
+                        break;
+                }
             }
+
         }
     }
 
@@ -84,6 +90,8 @@ public class OrdersService {
     }
 
     public static void putServings(OrdersDTO dto, List<String> servings) {
+//        for(OrdersDTO )
+        Log.d("OrdersService", dto.toString());
         FakerService.putServings(dto, servings);
     }
 

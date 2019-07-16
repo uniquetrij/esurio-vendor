@@ -32,7 +32,7 @@ public class OrdersListFragment extends Fragment {
      * fragment (e.g. upon screen orientation changes).
      */
     public OrdersListFragment() {
-        OrdersService.fetch();
+//        OrdersService.fetch();
     }
 
     @Override
@@ -43,7 +43,7 @@ public class OrdersListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        ((TextView)This.MAIN_ACTIVITY.self.findViewById(R.id.tv_actionbar)).setText("Foodcourts");
+        ((TextView)This.MAIN_ACTIVITY.self.findViewById(R.id.tv_actionbar)).setText("Orders");
         View view = inflater.inflate(R.layout.fragment_orders_list, container, false);
         Log.d(TAG,"onCreate "+(view instanceof RecyclerView) );
         if (view instanceof RecyclerView) {

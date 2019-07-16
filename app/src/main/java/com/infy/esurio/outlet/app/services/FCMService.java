@@ -5,7 +5,10 @@ import android.util.Log;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
+import com.infy.esurio.middleware.DTO.OrdersDTO;
 import com.infy.esurio.outlet.app.This;
+
+import java.util.Map;
 
 public class FCMService extends FirebaseMessagingService {
 
@@ -24,6 +27,12 @@ public class FCMService extends FirebaseMessagingService {
         Log.d(TAG, "From: " + remoteMessage.getFrom());
         if (remoteMessage.getData().size() > 0) {
             Log.d(TAG, "Message data payload: " + remoteMessage.getData());
+            Map<String, String> data = remoteMessage.getData();
+            if("order".equals(data.get("title"))){
+                OrdersDTO dto = new OrdersDTO();
+                dto.setIdentifier(data.get("message"));
+                This.ORDERS.add(dto);
+            }
         }
 
         if (remoteMessage.getNotification() != null) {

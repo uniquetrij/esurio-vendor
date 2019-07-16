@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.infy.esurio.R;
 
 import com.infy.esurio.middleware.DTO.OrdersDTO;
+import com.infy.esurio.outlet.app.This;
 import com.infy.esurio.outlet.app.services.OrdersService;
 
 /**
@@ -32,28 +33,33 @@ public class OrdersViewAdapter extends RecyclerView.Adapter<OrdersViewAdapter.Vi
         this.map.addOnListChangedCallback(new ObservableList.OnListChangedCallback<ObservableList<OrdersDTO>>() {
             @Override
             public void onChanged(ObservableList<OrdersDTO> sender) {
-                Log.d(TAG, "onChanged");
-                OrdersViewAdapter.this.notifyDataSetChanged();
+                notifyDataSetChanged();
             }
 
             @Override
             public void onItemRangeChanged(ObservableList<OrdersDTO> sender, int positionStart, int itemCount) {
-
+                notifyItemRangeChanged(positionStart, itemCount);
             }
 
             @Override
-            public void onItemRangeInserted(ObservableList<OrdersDTO> sender, int positionStart, int itemCount) {
+            public void onItemRangeInserted(ObservableList<OrdersDTO> sender, final int positionStart, final int itemCount) {
+                This.MAIN_ACTIVITY.self().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        notifyItemRangeInserted(positionStart, itemCount);
+                    }
+                });
 
             }
 
             @Override
             public void onItemRangeMoved(ObservableList<OrdersDTO> sender, int fromPosition, int toPosition, int itemCount) {
-
-            }
+                notifyItemRangeRemoved(fromPosition, itemCount);
+                notifyItemRangeInserted(toPosition, itemCount);            }
 
             @Override
             public void onItemRangeRemoved(ObservableList<OrdersDTO> sender, int positionStart, int itemCount) {
-
+                notifyItemRangeRemoved(positionStart, itemCount);
             }
         });
 
