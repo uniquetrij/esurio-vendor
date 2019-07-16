@@ -1,22 +1,16 @@
 package com.infy.esurio.outlet.app.services;
 
-import android.graphics.Color;
-import android.widget.ImageView;
-import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.databinding.ObservableArrayList;
 import androidx.databinding.ObservableList;
 
-import com.infy.esurio.R;
 import com.infy.esurio.outlet.app.This;
 import com.infy.esurio.middleware.DTO.OrdersDTO;
 
 import org.apache.commons.lang3.text.WordUtils;
 
-import static com.infy.esurio.outlet.app.This.COLORS.GREEN;
-import static com.infy.esurio.outlet.app.This.COLORS.ORANGE;
-import static com.infy.esurio.outlet.app.This.COLORS.RED;
+import java.util.List;
 
 
 public class OrdersService {
@@ -54,18 +48,44 @@ public class OrdersService {
         public static void putNUmber(OrdersDTO dto, TextView view) {
             view.setText(WordUtils.capitalizeFully(dto.getIdentifier()));
         }
+
+        public static void putServings(OrdersDTO dto, List<String> servings) {
+            servings.clear();
+            switch (dto.getIdentifier()) {
+                case "#1":
+                    servings.add("masala dosa - 2");
+                    break;
+                case "#2":
+                    servings.add("egg friedrice - 1");
+                    servings.add("paneer chilli - 1");
+                    break;
+
+                case "#3":
+                    servings.add("chicken biriyani - 1");
+                    break;
+                case "#4":
+                    servings.add("mixed noodles - 1");
+                    break;
+                case "#5":
+                    servings.add("masala dosa - 1");
+                    break;
+            }
+        }
     }
 
     public static ObservableList<OrdersDTO> fetch() {
-        This.OUTLETS.clear();
-        This.OUTLETS.addAll(FakerService.outletsFetch());
-        return This.OUTLETS;
+        This.ORDERS.clear();
+        This.ORDERS.addAll(FakerService.outletsFetch());
+        return This.ORDERS;
     }
 
     public static void putNumber(OrdersDTO dto, TextView view) {
         FakerService.putNUmber(dto, view);
     }
 
+    public static void putServings(OrdersDTO dto, List<String> servings) {
+        FakerService.putServings(dto, servings);
+    }
 
 
 }

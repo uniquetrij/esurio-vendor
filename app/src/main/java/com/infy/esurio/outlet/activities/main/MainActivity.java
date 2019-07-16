@@ -1,5 +1,6 @@
 package com.infy.esurio.outlet.activities.main;
 
+import android.app.Dialog;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
@@ -16,8 +17,10 @@ import com.infy.esurio.R;
 import com.infy.esurio.middleware.DTO.OrdersDTO;
 import com.infy.esurio.outlet.activities.main.fragments.OrdersListFragment;
 import com.infy.esurio.outlet.app.This;
+import com.infy.esurio.outlet.app.services.OrdersService;
 
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.annotation.NonNull;
 
@@ -26,15 +29,20 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements OrdersListFragment.OnOutletsItemClickedListener {
+public class MainActivity extends AppCompatActivity implements OrdersListFragment.OnOrdersItemClickedListener {
     private static final String TAG = "MainActivity";
     private TextView mTextMessage;
     private List<Fragment> fragmentStack = new ArrayList<>();
@@ -106,13 +114,6 @@ public class MainActivity extends AppCompatActivity implements OrdersListFragmen
         BottomNavigationView navView = findViewById(R.id.nav_view);
         mTextMessage = findViewById(R.id.message);
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-
-
-
-
-
-
-//        loadFragment(new ServingsListFragment());
     }
 
 
@@ -138,7 +139,19 @@ public class MainActivity extends AppCompatActivity implements OrdersListFragmen
 
 
     @Override
-    public void onListFragmentInteraction(OrdersDTO item) {
+    public void onOrdersListFragmentInteraction(OrdersDTO item) {
+
+        ArrayList<String> list = new ArrayList<>();
+        OrdersService.putServings(item, list);
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(MainActivity.this);
+        LayoutInflater inflater = getLayoutInflater();
+        View convertView = (View) inflater.inflate(R.layout.dialog_order_servings_list, null);
+        alertDialog.setView(convertView);
+        alertDialog.setTitle("Order Items");
+        ListView lv = convertView.findViewById(R.id.lv);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_activated_1, list);
+        lv.setAdapter(adapter);
+        alertDialog.show();
 
     }
 }

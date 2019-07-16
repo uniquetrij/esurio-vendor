@@ -19,13 +19,13 @@ import com.infy.esurio.outlet.app.services.OrdersService;
 /**
  * A fragment representing a list of Items.
  * <p/>
- * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
+ * Activities containing this fragment MUST implement the {@link OnOrdersItemClickedListener}
  * interface.
  */
 public class OrdersListFragment extends Fragment {
 
     private static final String TAG = "OrdersListFragment";
-    private OnOutletsItemClickedListener outletItemClickedListener;
+    private OnOrdersItemClickedListener foodcourtsItemClickedListener;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -43,32 +43,34 @@ public class OrdersListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        ((TextView)This.MAIN_ACTIVITY.self.findViewById(R.id.tv_actionbar)).setText("Outlets");
+        ((TextView)This.MAIN_ACTIVITY.self.findViewById(R.id.tv_actionbar)).setText("Foodcourts");
         View view = inflater.inflate(R.layout.fragment_orders_list, container, false);
         Log.d(TAG,"onCreate "+(view instanceof RecyclerView) );
         if (view instanceof RecyclerView) {
             RecyclerView recyclerView = (RecyclerView) view;
-            recyclerView.setAdapter(new OrdersViewAdapter(This.OUTLETS, outletItemClickedListener));
+            recyclerView.setAdapter(new OrdersViewAdapter(This.ORDERS, foodcourtsItemClickedListener));
         }
+
         return view;
+
     }
 
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnOutletsItemClickedListener) {
-            outletItemClickedListener = (OnOutletsItemClickedListener) context;
+        if (context instanceof OnOrdersItemClickedListener) {
+            foodcourtsItemClickedListener = (OnOrdersItemClickedListener) context;
         } else {
             throw new RuntimeException(context.toString()
-                    + " must implement OnFoodcourtsItemClickedListener");
+                    + " must implement OnOrdersItemClickedListener");
         }
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        outletItemClickedListener = null;
+        foodcourtsItemClickedListener = null;
     }
 
     /**
@@ -81,10 +83,8 @@ public class OrdersListFragment extends Fragment {
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
-    public interface OnOutletsItemClickedListener {
+    public interface OnOrdersItemClickedListener {
         // TODO: Update argument type and name
-        void onListFragmentInteraction(OrdersDTO item);
+        void onOrdersListFragmentInteraction(OrdersDTO item);
     }
-
-
 }

@@ -48,7 +48,7 @@ public class This {
     public static final Wrapper<String> FCM_TOKEN = new Wrapper<>();
 
 
-    public static final ObservableList<OrdersDTO> OUTLETS = new ObservableArrayList<>();
+    public static final ObservableList<OrdersDTO> ORDERS = new ObservableArrayList<>();
 
     public static class COLORS{
         public static int ORANGE = Color.parseColor("#F57F17");
