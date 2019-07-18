@@ -31,7 +31,7 @@ public class FCMService extends FirebaseMessagingService {
             if("order".equals(data.get("title"))){
                 OrdersDTO dto = new OrdersDTO();
                 dto.setIdentifier(data.get("message"));
-                This.ORDERS.add(dto);
+                This.ORDERS.add(0, dto);
             }
         }
 

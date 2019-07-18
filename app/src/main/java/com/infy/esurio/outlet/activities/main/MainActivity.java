@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -16,6 +17,7 @@ import com.google.firebase.iid.InstanceIdResult;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.infy.esurio.R;
 import com.infy.esurio.middleware.DTO.OrdersDTO;
+import com.infy.esurio.outlet.activities.BarcodeActivity;
 import com.infy.esurio.outlet.activities.main.fragments.OrdersListFragment;
 import com.infy.esurio.outlet.app.This;
 import com.infy.esurio.outlet.app.services.OrdersService;
@@ -58,7 +60,8 @@ public class MainActivity extends AppCompatActivity implements OrdersListFragmen
                     loadFragment(new OrdersListFragment());
                     return true;
                 case R.id.navigation_dashboard:
-//                    mTextMessage.setText(R.string.title_dashboard);
+                    Intent intent = new Intent(getApplicationContext(), BarcodeActivity.class);
+                    startActivity(intent);
                     return true;
                 case R.id.navigation_notifications:
 //                    mTextMessage.setText(R.string.title_notifications);

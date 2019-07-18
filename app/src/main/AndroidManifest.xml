@@ -4,6 +4,7 @@
     package="com.infy.esurio">
 
     <dist:module dist:instant="true" />
+    <uses-permission android:name="android.permission.CAMERA"/>
 
     <application
         android:allowBackup="true"
@@ -13,14 +14,19 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".outlet.activities.BarcodeActivity"
+            android:label="@string/title_activity_barcode"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
             android:name=".outlet.activities.main.MainActivity"
-            android:label="@string/title_activity_main"></activity>
+            android:label="@string/title_activity_main" />
         <activity
             android:name=".outlet.activities.login.LoginActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
